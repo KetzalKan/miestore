@@ -1,0 +1,31 @@
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { HttpHeaders } from '@angular/common/http';
+import { from, Observable } from 'rxjs';
+import { Register } from '../../model/register/register';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class LoginService {
+  url: string;
+  token: string;
+  header: any;
+
+  constructor(private http: HttpClient) {
+    this.url = 'http://localhost:8080/userapi/login';
+
+    const headerSettings: { [name: string]: string | string[]; } = {};
+    this.header = new HttpHeaders(headerSettings);
+  }
+
+  login(model: any) {
+    debugger;
+    var a = this.url;
+    return this.http.post<any>(this.url, model, { headers: this.header });
+  }
+  createUser(register: Register) {
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
+    return this.http.post<Register[]>(this.url + '/createcontact', register, httpOptions)
+  }
+}
